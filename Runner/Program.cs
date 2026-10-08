@@ -14,14 +14,15 @@ internal static class Program
             .Where(type => type.IsClass && !type.IsAbstract && typeof(DayBase).IsAssignableFrom(type))
             .OrderBy(type => type.FullName, StringComparer.Ordinal);
 
+        var totalNanoseconds = 0.0;
         foreach (var dayType in dayTypes)
         {
             try
             {
                 var instance = (DayBase)Activator.CreateInstance(dayType);
 
-                RunPart(dayType, nameof(DayBase.Part1), instance.Part1);
-                RunPart(dayType, nameof(DayBase.Part2), instance.Part2);
+                totalNanoseconds += RunPart(dayType, nameof(DayBase.Part1), instance.Part1);
+                totalNanoseconds += RunPart(dayType, nameof(DayBase.Part2), instance.Part2);
             }
             catch (Exception exception)
             {
@@ -29,6 +30,8 @@ internal static class Program
                 continue;
             }
         }
+
+        Console.WriteLine($"Total time: {totalNanoseconds / 1_000_000:N3} ms");
     }
 
     private static IEnumerable<Assembly> GetAssemblies()
@@ -41,7 +44,7 @@ internal static class Program
         }
     }
 
-    private static void RunPart(Type dayType, string partName, Func<string> part)
+    private static double RunPart(Type dayType, string partName, Func<string> part)
     {
         var stopwatch = Stopwatch.StartNew();
         string output;
@@ -60,5 +63,7 @@ internal static class Program
         }
 
         Console.WriteLine($"{dayType.FullName}.{partName}: {output} ({stopwatch.Elapsed.TotalMilliseconds:F3} ms)");
+
+        return stopwatch.Elapsed.TotalNanoseconds;
     }
 }
