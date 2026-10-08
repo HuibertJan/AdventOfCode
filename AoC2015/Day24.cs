@@ -48,10 +48,7 @@ public class Day24 : DayBase
         }
     }
 
-    public override string Part2()
-    {
-        throw new NotImplementedException();
-    }
+    public override string Part2() => Solve(4).ToString();
 
     public override string Input => @"1
 3

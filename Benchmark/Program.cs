@@ -38,8 +38,8 @@ public class DoBenchmarks
     private Day21 _day21 = new();
     private Day22 _day22 = new();
     private Day23 _day23 = new();
-    //private Day24 _day24 = new();
-    //private Day25 _day25 = new();
+    private Day24 _day24 = new();
+    private Day25 _day25 = new();
 
     [Benchmark] public string Day1Part1() => _day01.Part1();
     [Benchmark] public string Day1Part2() => _day01.Part2();
@@ -87,4 +87,7 @@ public class DoBenchmarks
     [Benchmark] public string Day22Part2() => _day22.Part2();
     [Benchmark] public string Day23Part1() => _day23.Part1();
     [Benchmark] public string Day23Part2() => _day23.Part2();
+    [Benchmark] public string Day24Part1() => _day24.Part1();
+    [Benchmark] public string Day24Part2() => _day24.Part2();
+    [Benchmark] public string Day25Part1() => _day25.Part1();
 }
