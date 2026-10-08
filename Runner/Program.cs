@@ -12,7 +12,8 @@ internal static class Program
             .Distinct()
             .SelectMany(assembly => assembly.GetTypes())
             .Where(type => type.IsClass && !type.IsAbstract && typeof(DayBase).IsAssignableFrom(type))
-            .OrderBy(type => type.FullName, StringComparer.Ordinal);
+            .OrderBy(type => type.FullName?.Length)
+            .ThenBy(type => type.FullName, StringComparer.Ordinal);
 
         var totalNanoseconds = 0.0;
         foreach (var dayType in dayTypes)
