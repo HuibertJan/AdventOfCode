@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="AdventOfCode/AdventOfCode.csproj" />
   <Project Path="AoC2015/AoC2015.csproj" />
+  <Project Path="Benchmark/Benchmark.csproj" Id="4a61d0d0-a16e-4c4c-8b24-b33efa7b0d14" />
   <Project Path="Runner/Runner.csproj" />
 </Solution>
