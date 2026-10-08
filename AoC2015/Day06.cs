@@ -2,7 +2,7 @@ using AdventOfCode;
 
 namespace AoC2015;
 
-public class Day6 : DayBase
+public class Day06 : DayBase
 {
     private const byte Off = 0, On = 1, Toggle = 2;
 

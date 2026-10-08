@@ -2,7 +2,7 @@
 
 namespace AoC2015;
 
-public class Day3 : DayBase
+public class Day03 : DayBase
 {
     public override string Part1()
     {

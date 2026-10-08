@@ -2,7 +2,7 @@ using AdventOfCode;
 
 namespace AoC2015;
 
-public class Day9 : DayBase
+public class Day09 : DayBase
 {
     public override string Part1()
     {

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace AoC2015;
 
-public class Day4 : DayBase
+public class Day04 : DayBase
 {
     // The first three hash bytes are the low three bytes of the first (little-endian) MD5 word.
     public override string Part1() => FindLowestNumber(0x00F0FFFF).ToString();
