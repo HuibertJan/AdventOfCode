@@ -6,12 +6,13 @@ namespace Runner;
 
 internal static class Program
 {
-    private static void Main()
+    private static void Main(string[] args)
     {
         var dayTypes = GetAssemblies()
             .Distinct()
             .SelectMany(assembly => assembly.GetTypes())
             .Where(type => type.IsClass && !type.IsAbstract && typeof(DayBase).IsAssignableFrom(type))
+            .Where(type => args.Length == 0 || type.FullName.Contains(args[0], StringComparison.OrdinalIgnoreCase))
             .OrderBy(type => type.FullName?.Length)
             .ThenBy(type => type.FullName, StringComparer.Ordinal);
 
