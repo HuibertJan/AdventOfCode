@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
+﻿using AdventOfCode;
+using System.Diagnostics;
 using System.Reflection;
-using AdventOfCode;
 
 namespace Runner;
 
@@ -12,7 +12,7 @@ internal static class Program
             .Distinct()
             .SelectMany(assembly => assembly.GetTypes())
             .Where(type => type.IsClass && !type.IsAbstract && typeof(DayBase).IsAssignableFrom(type))
-            .Where(type => args.Length == 0 || type.FullName.Contains(args[0], StringComparison.OrdinalIgnoreCase))
+            .Where(type => args.Length == 0 || type.FullName!.Contains(args[0], StringComparison.OrdinalIgnoreCase))
             .OrderBy(type => type.FullName?.Length)
             .ThenBy(type => type.FullName, StringComparer.Ordinal);
 
@@ -21,7 +21,7 @@ internal static class Program
         {
             try
             {
-                var instance = (DayBase)Activator.CreateInstance(dayType);
+                var instance = (DayBase)Activator.CreateInstance(dayType)!;
 
                 totalNanoseconds += RunPart(dayType, nameof(DayBase.Part1), instance.Part1);
                 totalNanoseconds += RunPart(dayType, nameof(DayBase.Part2), instance.Part2);
