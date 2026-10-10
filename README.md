@@ -1,4 +1,7 @@
-Intel 4790K
+Benchmarks run on an Intel's 4790K from 2014.
+
+Run all projects with `dotnet run -c Release --project .\Runner\Runner.csproj`
+Run all benchmarks with `dotnet run -c Release --project .\Benchmark\Benchmark.csproj`
 
 
 | Method     | Mean           | Error         | StdDev        | Gen0      | Gen1      | Gen2      | Allocated  |
