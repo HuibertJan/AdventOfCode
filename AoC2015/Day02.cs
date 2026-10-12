@@ -7,23 +7,56 @@ public class Day02 : DayBase
     public override string Part1()
     {
         long total = 0;
-        foreach (var line in ReadLines(Input))
+        foreach (var (d, e, f) in ParseInput())
         {
-            var d = line.Split('x').Select(int.Parse).ToArray();
-            int a = d[0] * d[1], b = d[1] * d[2], c = d[2] * d[0];
+            int a = d * e, b = e * f, c = f * d;
             total += 2 * (a + b + c) + Math.Min(a, Math.Min(b, c));
         }
 
         return total.ToString();
     }
 
+    private IEnumerable<(int A, int B, int C)> ParseInput()
+    {
+        int i = 0;
+        while (i < Input.Length)
+        {
+            int a = Input[i++] - '0';
+            if (Input[i] != 'x') a = a * 10 + (Input[i++] - '0');
+            i++;
+
+            int b = Input[i++] - '0';
+            if (Input[i] != 'x') b = b * 10 + (Input[i++] - '0');
+            i++;
+
+            int c = Input[i++] - '0';
+            if (i < Input.Length && Input[i] != 'x' && Input[i] != '\r') c = c * 10 + (Input[i++] - '0');
+
+            i+= 2;
+            yield return (a, b, c);
+        }
+    }
+
     public override string Part2()
     {
         long total = 0;
-        foreach (var line in ReadLines(Input))
+        foreach (var (d, e, f) in ParseInput())
         {
-            var d = line.Split('x').Select(int.Parse).Order().ToArray();
-            total += 2 * (d[0] + d[1]) + d[0] * d[1] * d[2];
+            if (d < e || d < f)
+            {
+                if (e < f)
+                {
+                    total += 2 * (d + e) + d * e * f;
+                }
+                else
+                {
+                    total += 2 * (d + f) + d * e * f;
+                }
+            }
+            else
+            {
+                total += 2 * (e + f) + d * e * f;
+            }
         }
 
         return total.ToString();
