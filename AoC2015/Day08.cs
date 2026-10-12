@@ -7,25 +7,37 @@ public class Day08 : DayBase
     public override string Part1()
     {
         var total = 0;
-        foreach (var line in Input.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+        foreach (var line in Input.AsSpan().EnumerateLines())
         {
-            var memory = 0;
+            total += line.Length;
             for (var i = 1; i < line.Length - 1; i++)
             {
                 if (line[i] == '\\')
-                    i += line[i + 1] == 'x' ? 3 : 1;
-                memory++;
+                {
+                    if (line[i + 1] == 'x')
+                        i += 3;
+                    else
+                        i++;
+                }
+                total--;
             }
-            total += line.Length - memory;
         }
         return total.ToString();
     }
 
     public override string Part2()
     {
-        return Input.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-            .Sum(line => 2 + line.Count(c => c is '"' or '\\'))
-            .ToString();
+        var total = 0;
+        foreach (var line in Input.AsSpan().EnumerateLines())
+        {
+            total += 2;
+            foreach (var c in line)
+            {
+                if (c is '"' or '\\')
+                    total++;
+            }
+        }
+        return total.ToString();
     }
 
     public override string Input => @"""\xa8br\x8bjr\""""
