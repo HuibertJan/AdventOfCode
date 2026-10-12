@@ -4,26 +4,31 @@ namespace AoC2015;
 
 public class Day03 : DayBase
 {
+    private static readonly int[] Part1Delta = CreateDelta();
+
+    private static int[] CreateDelta()
+    {
+        var delta = new int[128];
+        delta['^'] = 256;
+        delta['v'] = -256;
+        delta['>'] = 1;
+        delta['<'] = -1;
+        return delta;
+    }
+
     public override string Part1()
     {
-        var x = 128;
-        var y = 128;
-        int count = 0;
-        var visited = new int[256,256];
+        var pos = 128 * 256 + 128;
+        int count = 1;
+        Span<bool> visited = stackalloc bool[256 * 256];
+        visited[pos] = true;
 
         foreach (var c in Input)
         {
-            switch (c)
+            pos += Part1Delta[c];
+            if (!visited[pos])
             {
-                case '^': y++; break;
-                case 'v': y--; break;
-                case '>': x++; break;
-                case '<': x--; break;
-                default: continue;
-            }
-            if (visited[x, y] == 0)
-            {
-                visited[x, y] = 1;
+                visited[pos] = true;
                 count++;
             }
         }
@@ -33,44 +38,29 @@ public class Day03 : DayBase
 
     public override string Part2()
     {
-        var x = 128;
-        var y = 128;
-        var a = 128;
-        var b = 128;
-        int count = 0;
-        var visited = new int[256, 256];
+        var pos = 128 * 256 + 128;
+        var robot = pos;
+        int count = 1;
+        Span<bool> visited = stackalloc bool[256 * 256];
+        visited[pos] = true;
 
-        int i = 0;
-        while (i < Input.Length)
+        var enumerator = Input.GetEnumerator();
+
+        while (enumerator.MoveNext())
         {
-            switch (Input[i])
+            pos += Part1Delta[enumerator.Current];
+            if (!visited[pos])
             {
-                case '^': y++; break;
-                case 'v': y--; break;
-                case '>': x++; break;
-                case '<': x--; break;
-                default: continue;
-            }
-            if (visited[x, y] == 0)
-            {
-                visited[x, y] = 1;
+                visited[pos] = true;
                 count++;
             }
-            i++;
-            switch (Input[i])
+            enumerator.MoveNext();
+            robot += Part1Delta[enumerator.Current];
+            if (!visited[robot])
             {
-                case '^': a++; break;
-                case 'v': a--; break;
-                case '>': b++; break;
-                case '<': b--; break;
-                default: continue;
-            }
-            if (visited[a, b] == 0)
-            {
-                visited[a, b] = 1;
+                visited[robot] = true;
                 count++;
             }
-            i++;
         }
 
         return count.ToString();
