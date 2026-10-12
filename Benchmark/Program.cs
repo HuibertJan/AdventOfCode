@@ -47,6 +47,8 @@ public class DoBenchmarks
     [Benchmark] public string Day2Part2() => _day02.Part2();
     [Benchmark] public string Day3Part1() => _day03.Part1();
     [Benchmark] public string Day3Part2() => _day03.Part2();
+    [Benchmark] public string Day3Part1HashSet() => _day03.Part1HashSet();
+    [Benchmark] public string Day3Part2HashSet() => _day03.Part2HashSet();
     [Benchmark] public string Day4Part1() => _day04.Part1();
     [Benchmark] public string Day4Part2() => _day04.Part2();
     [Benchmark] public string Day5Part1() => _day05.Part1();
